@@ -1,0 +1,13 @@
+<!-- country-search-input -->
+<country-search-input (value)="query.set($event)" placeholder="Buscar por País" />
+
+<!-- country-list -->
+ <country-list [countries]="countryResource.value()" 
+    [isLoading]="countryResource.isLoading()"
+    [errorMessage]="errorSignal()"
+    [isEmpty]="countryResource.hasValue()"/>
+   
+
+<!-- Esto imprimirá el error como string completo -->
+<pre>{{ errorSignal() | json }}</pre>
+<p>{{ errorSignal()?.toString() }}</p>
