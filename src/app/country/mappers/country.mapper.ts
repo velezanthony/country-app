@@ -12,7 +12,10 @@ export class CountryMapper{
             name: restCountry.name.common,
             capital: restCountry.capital[0],
             population: restCountry.population,
-            nameSpanish: restCountry.translations["spa"].common
+            nameSpanish: restCountry.translations["spa"].common,
+
+            region: restCountry.region,
+            subRegion: restCountry.subregion,
         }
 
         return country;

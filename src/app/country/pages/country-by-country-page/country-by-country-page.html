@@ -1,13 +1,20 @@
 <!-- country-search-input -->
 <country-search-input (value)="query.set($event)" placeholder="Buscar por País" />
 
-<!-- country-list -->
- <country-list [countries]="countryResource.value()" 
-    [isLoading]="countryResource.isLoading()"
-    [errorMessage]="errorSignal()"
-    [isEmpty]="countryResource.hasValue()"/>
-   
 
-<!-- Esto imprimirá el error como string completo -->
-<pre>{{ errorSignal() | json }}</pre>
-<p>{{ errorSignal()?.toString() }}</p>
+<!-- country-list -->
+@if (countryResource.error()) {
+  <div class="alert alert-error shadow-lg my-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M18.364 5.636l-1.414 1.414L12 12l-4.95-4.95-1.414 1.414L10.586 13.4l-4.95 4.95 1.414 1.414L12 14.414l4.95 4.95 1.414-1.414-4.95-4.95 4.95-4.95z" />
+    </svg>
+    <span>Error: {{ countryResource.error()?.message || countryResource.error() }}</span>
+  </div>
+} @else {
+  <country-list
+    [countries]="countryResource.value()"
+    [isEmpty]="countryResource.value().length === 0"
+    [isLoading]="countryResource.isLoading()"
+  />
+}
